@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing_extensions import Sequence
 
 from sqlalchemy import text, select, delete
 from sqlalchemy.orm import Session
@@ -18,20 +18,20 @@ def get_all_nodes(db: Session) -> Sequence[Node]:
 def get_reachable_nodes(db: Session, start_node_id: int) -> Sequence[Node]:
     reachable_cte = text("""
         WITH RECURSIVE reachable AS (
-            SELECT to_node_id
-            FROM edges
-            WHERE from_node_id = :start_node_id
-
+            SELECT id
+            FROM nodes
+            WHERE id = :start_node_id
+            
             UNION
-
+            
             SELECT e.to_node_id
             FROM edges e
-            JOIN reachable r ON e.from_node_id = r.to_node_id
-        )
-        SELECT n.id
-        FROM nodes n
-        JOIN reachable r ON n.id = r.to_node_id;
+            JOIN reachable r ON e.from_node_id = r.id
+    )
+    SELECT id
+    FROM reachable;
     """)
+
     result = db.scalars(select(Node).from_statement(reachable_cte), {"start_node_id": start_node_id}).all()
 
     return result

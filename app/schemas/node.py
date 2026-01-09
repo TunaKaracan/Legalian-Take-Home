@@ -4,7 +4,7 @@ class NodeCreate(BaseModel):
     pass
 
 class NodeResponse(BaseModel):
-    id: int
+    id: PositiveInt
 
 class NodeDeleteRequest(BaseModel):
     node_id: PositiveInt

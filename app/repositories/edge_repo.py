@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing_extensions import Sequence
 
 from sqlalchemy import select, delete
 from sqlalchemy.orm import Session
@@ -26,7 +26,9 @@ def create_edges(db: Session, edges: list[tuple[int, int]]) -> Sequence[Edge]:
 
     return db_edges
 
-def swap_edge_directions(db: Session, edges: list[Edge]) -> list[Edge]:
+def swap_edge_directions(db: Session, edges: list[int]) -> Sequence[Edge]:
+    edges = get_edges(db, edges)
+
     for edge in edges:
         if edge.from_node_id == edge.to_node_id:
             continue
