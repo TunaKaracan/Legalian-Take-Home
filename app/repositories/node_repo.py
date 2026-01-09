@@ -32,7 +32,7 @@ def get_reachable_nodes(db: Session, start_node_id: int) -> Sequence[Node]:
     FROM reachable;
     """)
 
-    result = db.scalars(select(Node).from_statement(reachable_cte), {"start_node_id": start_node_id}).all()
+    result = db.scalars(select(Node).from_statement(reachable_cte), {'start_node_id': start_node_id}).all()
 
     return result
 

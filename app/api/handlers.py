@@ -9,7 +9,7 @@ async def node_not_found_handler(
 ):
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={"detail": str(exc)},
+        content={'detail': str(exc)},
     )
 
 async def edge_not_found_handler(
@@ -18,5 +18,5 @@ async def edge_not_found_handler(
 ):
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND,
-        content={"detail": str(exc)},
+        content={'detail': str(exc)},
     )

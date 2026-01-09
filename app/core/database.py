@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from app.models.base import Base
 
 
-DATABASE_URL = "mysql+pymysql://root:1234@localhost:3306/graph_db"
+DATABASE_URL = 'mysql+pymysql://root:1234@localhost:3306/graph_db'
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base.metadata.create_all(bind=engine)
