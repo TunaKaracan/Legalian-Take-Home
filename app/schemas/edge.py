@@ -1,5 +1,4 @@
-from typing_extensions import Annotated
-from pydantic import BaseModel, PositiveInt, Field
+from pydantic import BaseModel, PositiveInt
 
 class EdgeBase(BaseModel):
 	from_node_id: int
@@ -12,7 +11,7 @@ class EdgeResponse(EdgeBase):
 	id: int
 
 class EdgeDeleteRequest(BaseModel):
-	edge_ids: Annotated[list[PositiveInt], Field(min_length=1)]
+	edge_id: PositiveInt
 
 class EdgeSwapRequest(BaseModel):
 	edge_id: int

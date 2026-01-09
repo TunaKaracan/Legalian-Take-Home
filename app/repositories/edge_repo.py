@@ -26,15 +26,19 @@ def create_edges(db: Session, edges: list[tuple[int, int]]) -> Sequence[Edge]:
 
     return db_edges
 
-def swap_edge_direction(db: Session, edge: Edge) -> Edge:
-    if edge.to_node_id == edge.from_node_id:
-        return edge
+def swap_edge_directions(db: Session, edges: list[Edge]) -> list[Edge]:
+    for edge in edges:
+        if edge.from_node_id == edge.to_node_id:
+            continue
 
-    edge.from_node_id, edge.to_node_id = edge.to_node_id, edge.from_node_id
+        edge.from_node_id, edge.to_node_id = edge.to_node_id, edge.from_node_id
+
     db.commit()
-    db.refresh(edge)
 
-    return edge
+    for edge in edges:
+        db.refresh(edge)
+
+    return edges
 
 def delete_edges(db: Session, edge_ids: list[int]) -> None:
     db.execute(delete(Edge).where(Edge.id.in_(edge_ids)))
