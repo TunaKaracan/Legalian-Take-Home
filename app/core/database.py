@@ -1,13 +1,15 @@
 from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
-from app.models.base import Base
+from app.core.config import settings
 
-DATABASE_URL = 'mysql+pymysql://root:1234@localhost:3306/graph_db'
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-Base.metadata.create_all(bind=engine)
 
+def create_tables():
+	db = SessionLocal()
+	with open('app/ddl/init.sql') as f:
+		for command in f.read().split(';'):
+			db.execute(text(command))
+	db.close()
 
 def get_db() -> Session:
 	db = SessionLocal()
@@ -15,3 +17,7 @@ def get_db() -> Session:
 		yield db
 	finally:
 		db.close()
+
+engine = create_engine(settings.database_url)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+create_tables()

@@ -13,7 +13,7 @@ router = APIRouter()
 @router.get('/graph',
 			response_model=GraphResponse,
 			summary='Get the current graph')
-async def get_graph(db: Session = Depends(get_db)):
+def get_graph(db: Session = Depends(get_db)):
 	return graph_service.get_graph(db)
 
 
@@ -21,7 +21,7 @@ async def get_graph(db: Session = Depends(get_db)):
 			 response_model=GraphResponse,
 			 status_code=status.HTTP_201_CREATED,
 			 summary='Deterministically seed the graph')
-async def seed_graph(db: Session = Depends(get_db)):
+def seed_graph(db: Session = Depends(get_db)):
 	return graph_service.seed_graph(db)
 
 
@@ -29,14 +29,14 @@ async def seed_graph(db: Session = Depends(get_db)):
 			 response_model=GraphResponse,
 			 status_code=status.HTTP_201_CREATED,
 			 summary='Randomly seed the graph')
-async def seed_graph(db: Session = Depends(get_db)):
+def seed_graph(db: Session = Depends(get_db)):
 	return graph_service.seed_graph_random(db)
 
 
 @router.delete('/graph/clear',
 			   status_code=status.HTTP_204_NO_CONTENT,
 			   summary='Clear the nodes and edges')
-async def clear_graph(db: Session = Depends(get_db)):
+def clear_graph(db: Session = Depends(get_db)):
 	graph_service.clear_graph(db)
 
 
@@ -46,7 +46,7 @@ async def clear_graph(db: Session = Depends(get_db)):
 			response_model=list[NodeResponse],
 			responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},
 			summary='Get all reachable nodes from a node')
-async def get_connected(node_id: int, db: Session = Depends(get_db)):
+def get_connected(node_id: int, db: Session = Depends(get_db)):
 	return node_service.get_reachable_nodes(db, node_id)
 
 
@@ -54,7 +54,7 @@ async def get_connected(node_id: int, db: Session = Depends(get_db)):
 			 response_model=list[NodeResponse],
 			 status_code=status.HTTP_201_CREATED,
 			 summary='Create a new node')
-async def create_node(node: NodeCreate, db: Session = Depends(get_db)):
+def create_node(node: NodeCreate, db: Session = Depends(get_db)):
 	return node_service.create_nodes(db, [node])
 
 
@@ -62,7 +62,7 @@ async def create_node(node: NodeCreate, db: Session = Depends(get_db)):
 			   status_code=status.HTTP_204_NO_CONTENT,
 			   responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},
 			   summary='Delete a node')
-async def delete_node(node: NodeDeleteRequest, db: Session = Depends(get_db)):
+def delete_node(node: NodeDeleteRequest, db: Session = Depends(get_db)):
 	node_service.delete_nodes(db, [node])
 
 
@@ -73,7 +73,7 @@ async def delete_node(node: NodeDeleteRequest, db: Session = Depends(get_db)):
 			 status_code=status.HTTP_201_CREATED,
 			 responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},
 			 summary='Create a new edge between node(s)')
-async def create_edge(edge: EdgeCreate, db: Session = Depends(get_db)):
+def create_edge(edge: EdgeCreate, db: Session = Depends(get_db)):
 	return edge_service.create_edges(db, [edge])
 
 
@@ -81,7 +81,7 @@ async def create_edge(edge: EdgeCreate, db: Session = Depends(get_db)):
 			response_model=list[EdgeResponse],
 			responses={status.HTTP_404_NOT_FOUND: {'description': 'Edge Not Found Error'}},
 			summary='Swap the direction of an edge')
-async def swap_edge_direction(edge: EdgeSwapDirectionRequest, db: Session = Depends(get_db)):
+def swap_edge_direction(edge: EdgeSwapDirectionRequest, db: Session = Depends(get_db)):
 	return edge_service.swap_edge_directions(db, [edge])
 
 
@@ -89,5 +89,5 @@ async def swap_edge_direction(edge: EdgeSwapDirectionRequest, db: Session = Depe
 			   status_code=status.HTTP_204_NO_CONTENT,
 			   responses={status.HTTP_404_NOT_FOUND: {'description': 'Edge Not Found Error'}},
 			   summary='Delete an edge')
-async def delete_edge(edge: EdgeDeleteRequest, db: Session = Depends(get_db)):
+def delete_edge(edge: EdgeDeleteRequest, db: Session = Depends(get_db)):
 	edge_service.delete_edges(db, [edge])

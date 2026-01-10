@@ -18,10 +18,8 @@ CREATE TABLE IF NOT EXISTS edges (
     CONSTRAINT fk_edges_to
         FOREIGN KEY (to_node_id)
         REFERENCES nodes(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT uq_edge UNIQUE (from_node_id, to_node_id)
+        ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE INDEX idx_edges_from_node ON edges (from_node_id);
-CREATE INDEX idx_edges_to_node ON edges (to_node_id);
+CREATE INDEX idx_edges_to_node ON edges (to_node_id)
