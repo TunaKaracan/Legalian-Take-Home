@@ -1,2 +1,170 @@
-Requirements:
-- Python 3.11
+# Legalian - Take Home - Tuna
+
+A simple Graph API built with **FastAPI** that allows you to create nodes and edges to explore
+relationships between nodes in a graph. The service runs using **Docker Compose** and uses
+**MySQL** as its database.
+
+---
+
+## Architecture
+
+This service is implemented as a layered **FastAPI** application, designed to clearly separate
+**HTTP concerns, business logic, and persistence**. The architecture prioritizes readability,
+testability, and maintainability while remaining intentionally simple for an MVP-sized system.
+
+The codebase is organized into the following layers:
+
+- **API layer** (`api/`): Defines HTTP routes and contains no business logic and delegates all work to the service layer.
+- **Service layer** (`services/`): Encapsulates application and domain logic, including validation and orchestration.
+- **Repository layer** (`repositories/`): Responsible for all database interactions and persistence logic.
+- **Models** (`models/`): SQLAlchemy ORM models representing database tables.
+- **Schemas** (`schemas/`): Pydantic models used for request validation and response serialization.
+- **Core** (`core/`): Application configuration, database setup and exception definitions.
+
+---
+
+#### Graph Traversal
+Graph traversal is implemented using a recursive Common Table Expression (CTE) in MySQL,
+enabling deep connectivity queries to be executed in a single database query.
+
+---
+
+#### Error Handling
+Validation errors are handled through Pydantic schemas, domain-specific exceptions are raised in the
+service layer and translated into appropriate HTTP responses using FastAPI exception handlers.
+
+---
+
+### Design Trade-offs
+#### Asyncio
+Asynchronous operations were not implemented, as they were considered outside the scope of this project.
+
+---
+
+## Running the Project with Docker
+
+### Requirements
+
+* Docker
+* Docker Compose Plugin
+
+### Start the Services
+
+The example Docker Compose file can be found at `docker-compose.example.yml`.
+Run the following command from the project root:
+
+```shell
+docker compose -f docker-compose.example.yml up -d
+```
+
+This will start:
+
+* A MySQL database instance
+* The FastAPI application
+
+---
+
+### Environment Variables
+
+The application can be configured using the following environment variables:
+
+| Variable          | Description                                               | Default     |
+|-------------------|-----------------------------------------------------------|-------------|
+| `PORT`            | FastAPI server port                                       | 8000        |
+| `APP_NAME`        | FastAPI application title                                 | Legalian... |
+| `APP_DEBUG_MODE`  | Enable/disable FastAPI debug mode and Swagger & Redoc UIs | False       |
+| `APP_DB_HOST`     | Database host                                             | localhost   |
+| `APP_DB_PORT`     | Database port                                             | 3306        |
+| `APP_DB_USER`     | Database user                                             | root        |
+| `APP_DB_PASSWORD` | Database password                                         | 1234        |
+| `APP_DB_NAME`     | Database name                                             | graph_db    |
+
+### API Documentation
+
+Once running, you can access the interactive API documentation at:
+
+- http://localhost:8000/docs
+- http://localhost:8000/redoc
+
+---
+
+## API Endpoint
+
+### Get Connected Nodes
+
+```http
+GET /nodes/{node_id}/connected
+```
+
+**Description:**
+Returns all nodes reachable from the given node, including the node itself.
+
+**Example:**
+
+```http
+GET http://localhost:8000/nodes/1/connected
+```
+
+---
+
+## Graph API – Verifying The Connectivity
+
+### 1. Verify the Database & API Are Running
+
+To confirm that the MySQL database and the API are up and running, execute the following `cURL` command:
+```shell
+curl -X 'GET' 'http://127.0.0.1:8000/graph' -H 'accept: application/json'
+```
+
+#### Expected Response
+Since the graph has just been created and contains no data yet, you should receive:
+```json
+{
+  "nodes":[],
+  "edges":[]
+}
+```
+
+---
+
+### 2. Seed the Graph with Sample Data
+
+Next, initialize the graph with a predefined state by running the following command:
+
+```shell
+curl -X 'POST' 'http://127.0.0.1:8000/graph/seed' -H 'accept: application/json'
+```
+This will populate the graph with a known set of nodes and edges for testing and development.
+
+---
+
+### 3. Query Connected Nodes
+
+To retrieve all nodes reachable from the node with `id = 1`, execute:
+
+```shell
+curl -X 'GET' 'http://127.0.0.1:8000/nodes/1/connected' -H 'accept: application/json'
+```
+
+#### Expected Response
+Since the graph has been seeded with sample data, you should receive:
+```json
+[
+  {"id":1},
+  {"id":2},
+  {"id":3},
+  {"id":5},
+  {"id":6},
+  {"id":4},
+  {"id":7},
+  {"id":8},
+  {"id":9},
+  {"id":13},
+  {"id":11},
+  {"id":14},
+  {"id":15},
+  {"id":16},
+  {"id":10},
+  {"id":12}
+]
+```

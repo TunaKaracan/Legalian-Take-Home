@@ -22,7 +22,8 @@ services:
       - "8000:8000"
     restart: "unless-stopped"
     environment:
-      # PORT: "8000"
+      PORT: "8000"
+      APP_DEBUG_MODE: true
       APP_DB_HOST: "mysql"
       APP_DB_PORT: 3306
       APP_DB_USER: "root"
