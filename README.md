@@ -1,4 +1,4 @@
-# Legalian - Take Home - Tuna
+# Legalian - Take Home
 
 A simple Graph API built with **FastAPI** that allows you to create nodes and edges to explore
 relationships between nodes in a graph. The service runs using **Docker Compose** and uses
