@@ -6,9 +6,12 @@ from app.core.config import settings
 
 def create_tables():
 	db = SessionLocal()
-	with open('app/ddl/init.sql') as f:
-		for command in f.read().split(';'):
-			db.execute(text(command))
+
+	with open('app/ddl/create_nodes_table.sql') as f:
+		db.execute(text(f.read()))
+	with open('app/ddl/create_edges_table.sql') as f:
+		db.execute(text(f.read()))
+
 	db.close()
 
 def get_db() -> Session:
