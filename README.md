@@ -4,8 +4,6 @@ A simple Graph API built with **FastAPI** that allows you to create nodes and ed
 relationships between nodes in a graph. The service runs using **Docker Compose** and uses
 **MySQL** as its database.
 
----
-
 ## Architecture
 
 This service is implemented as a layered **FastAPI** application, designed to clearly separate
@@ -21,13 +19,9 @@ The codebase is organized into the following layers:
 - **Schemas** (`schemas/`): Pydantic models used for request validation and response serialization.
 - **Core** (`core/`): Application configuration, database setup and exception definitions.
 
----
-
 #### Graph Traversal
 Graph traversal is implemented using a recursive Common Table Expression (CTE) in MySQL,
 enabling deep connectivity queries to be executed in a single database query.
-
----
 
 #### Error Handling
 Validation errors are handled through Pydantic schemas, domain-specific exceptions are raised in the
@@ -38,8 +32,6 @@ service layer and translated into appropriate HTTP responses using FastAPI excep
 ### Design Trade-offs
 #### Asyncio
 Asynchronous operations were not implemented, as they were considered outside the scope of this project.
-
----
 
 ## Running the Project with Docker
 
@@ -86,8 +78,6 @@ Once running, you can access the interactive API documentation at:
 - http://localhost:8000/docs
 - http://localhost:8000/redoc
 
----
-
 ## API Endpoint
 
 ### Get Connected Nodes
@@ -104,8 +94,6 @@ Returns all nodes reachable from the given node, including the node itself.
 ```http
 GET http://localhost:8000/nodes/1/connected
 ```
-
----
 
 ## Graph API – Verifying The Connectivity
 
