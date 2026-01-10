@@ -5,6 +5,6 @@ from app.models.base import Base
 
 
 class Node(Base):
-    __tablename__ = 'nodes'
+	__tablename__ = 'nodes'
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+	id: Mapped[int] = mapped_column(Integer, primary_key=True)

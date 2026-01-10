@@ -5,8 +5,8 @@ from app.models.base import Base
 
 
 class Edge(Base):
-    __tablename__ = 'edges'
+	__tablename__ = 'edges'
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    from_node_id: Mapped[int] = mapped_column(Integer, ForeignKey('nodes.id', ondelete='CASCADE'))
-    to_node_id: Mapped[int] = mapped_column(Integer, ForeignKey('nodes.id', ondelete='CASCADE'))
+	id: Mapped[int] = mapped_column(Integer, primary_key=True)
+	from_node_id: Mapped[int] = mapped_column(Integer, ForeignKey('nodes.id', ondelete='CASCADE'))
+	to_node_id: Mapped[int] = mapped_column(Integer, ForeignKey('nodes.id', ondelete='CASCADE'))
