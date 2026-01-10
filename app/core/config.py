@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
 	# App
-	name: str = 'Legalian - Take Home'
+	name: str = 'Legalian - Take Home - Graph API'
 
 	# Debug
 	debug_mode: bool = False
