@@ -15,7 +15,7 @@ def get_connected(node_id: int, db: Session = Depends(get_db)):
 	return node_service.get_reachable_nodes(db, node_id)
 
 
-@router.post('/',
+@router.post('',
 			 response_model=list[NodeResponse],
 			 status_code=status.HTTP_201_CREATED,
 			 summary='Create a new node')
@@ -23,7 +23,7 @@ def create_node(node: NodeCreate, db: Session = Depends(get_db)):
 	return node_service.create_nodes(db, [node])
 
 
-@router.delete('/',
+@router.delete('',
 			   status_code=status.HTTP_204_NO_CONTENT,
 			   responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},
 			   summary='Delete a node')

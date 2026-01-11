@@ -7,7 +7,7 @@ from app.schemas.edge import EdgeResponse, EdgeCreate, EdgeDeleteRequest, EdgeSw
 
 router = APIRouter()
 
-@router.post('/',
+@router.post('',
 			 response_model=list[EdgeResponse],
 			 status_code=status.HTTP_201_CREATED,
 			 responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},
@@ -16,7 +16,7 @@ def create_edge(edge: EdgeCreate, db: Session = Depends(get_db)):
 	return edge_service.create_edges(db, [edge])
 
 
-@router.put('/',
+@router.put('',
 			response_model=list[EdgeResponse],
 			responses={status.HTTP_404_NOT_FOUND: {'description': 'Edge Not Found Error'}},
 			summary='Swap the direction of an edge')
@@ -24,7 +24,7 @@ def swap_edge_direction(edge: EdgeSwapDirectionRequest, db: Session = Depends(ge
 	return edge_service.swap_edge_directions(db, [edge])
 
 
-@router.delete('/',
+@router.delete('',
 			   status_code=status.HTTP_204_NO_CONTENT,
 			   responses={status.HTTP_404_NOT_FOUND: {'description': 'Edge Not Found Error'}},
 			   summary='Delete an edge')

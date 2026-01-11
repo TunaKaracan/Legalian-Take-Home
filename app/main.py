@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.handlers import node_not_found_handler, edge_not_found_handler
 from app.core import exceptions

@@ -47,7 +47,7 @@ def seed_graph(db: Session) -> GraphResponse:
 def seed_graph_random(db: Session) -> GraphResponse:
 	node_repo.delete_all_nodes(db)
 
-	total_nodes = randint(5, 15)
+	total_nodes = randint(10, 20)
 	created_nodes = node_repo.create_nodes(db, total_nodes)
 
 	node_ids = [node.id for node in created_nodes]
