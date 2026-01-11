@@ -30,8 +30,34 @@ service layer and translated into appropriate HTTP responses using FastAPI excep
 ---
 
 ### Design Trade-offs
+#### Clear Layered Architecture
+A clear API–service–repository separation was preferred since it improves testability, readability,
+and scalability for larger codebases, even though it introduces additional boilerplate.
+
+---
+
+#### Explicit Error Handling
+Resource existence is explicitly validated in the service layer instead of relying on database
+constraint errors. This improves error clarity and API behavior at the cost of additional queries.
+
+---
+
+#### Bulk Operations
+Bulk operations were preferred over single-resource endpoints to keep the API surface
+minimal and support more efficient graph updates with singular queries.
+
+---
+
+#### Atomic Operations
+Atomic graph operations were preferred since graph consistency was prioritized over partial
+success, ensuring the system is never left in an intermediate or invalid state. The tradeoff
+is reduced flexibility, as all errors must be resolved before requests.
+
+---
+
 #### Asyncio
-Asynchronous operations were not implemented, as they were considered outside the scope of this project.
+The API uses synchronous SQLAlchemy sessions instead of async sessions. This simplifies
+transaction handling for a take-home project, at the cost of reduced concurrency under load.
 
 ## Running the Project with Docker
 

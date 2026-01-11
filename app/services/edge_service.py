@@ -7,10 +7,10 @@ from app.services.assertions import assert_nodes, assert_edges
 
 def create_edges(db: Session, edges: list[EdgeCreate]) -> list[EdgeResponse]:
 	"""
-	Create edges between pairs of nodes.
-	:param db: Database session
-	:param edges: List of edges between nodes
-	:return: List of created edges
+	Create directed edges between existing node(s). Self-loops and multiple connections between the same
+	pair of nodes are allowed.
+
+	:raises NodeNotFoundError: If any referenced node does not exist.
 	"""
 
 	node_ids = {edge.from_node_id for edge in edges} | {edge.to_node_id for edge in edges}
@@ -25,11 +25,10 @@ def create_edges(db: Session, edges: list[EdgeCreate]) -> list[EdgeResponse]:
 
 def swap_edge_directions(db: Session, edges: list[EdgeSwapDirectionRequest]) -> list[EdgeResponse]:
 	"""
-	Swap the direction of edges. I.e X->Y => Y->X
-	:param db: Database session
-	:param edges: List of edges
-	:return: List of swapped edges
-	"""
+    Reverse the direction of the specified edges (X -> Y becomes Y -> X).
+
+    :raises EdgeNotFoundError: If any requested edge does not exist.
+    """
 
 	edge_ids = assert_edges(db=db, edges=edges)
 
@@ -41,11 +40,10 @@ def swap_edge_directions(db: Session, edges: list[EdgeSwapDirectionRequest]) -> 
 
 def delete_edges(db: Session, edges: list[EdgeDeleteRequest]) -> None:
 	"""
-	Delete edges.
-	:param db: Database session
-	:param edges: List of edges
-	:return: None
-	"""
+    Delete the specified edges from the graph.
+
+    :raises EdgeNotFoundError: If any requested edge does not exist.
+    """
 
 	edge_ids = assert_edges(db=db, edges=edges)
 

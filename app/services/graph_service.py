@@ -9,9 +9,7 @@ from app.scripts import seed_db
 
 def get_graph(db: Session) -> GraphResponse:
 	"""
-	Get the current graph.
-	:param db: Database session
-	:return: The current graph
+	Return the complete graph, including all nodes and edges.
 	"""
 
 	nodes = node_repo.get_all_nodes(db)
@@ -24,27 +22,21 @@ def get_graph(db: Session) -> GraphResponse:
 
 def seed_graph(db: Session) -> GraphResponse:
 	"""
-	Set the graph to a pre-determined state.
-	:param db: Database session
-	:return: The new graph
+	Replace the current graph with a predefined deterministic graph and return it.
 	"""
 
 	return seed_db.seed_graph(db)
 
 def seed_graph_random(db: Session) -> GraphResponse:
 	"""
-	Set the graph to a random state.
-	:param db: Database session
-	:return: The new graph
+	Replace the current graph with a randomly generated graph and return it.
 	"""
 
 	return seed_db.seed_graph_random(db)
 
 def clear_graph(db: Session) -> None:
 	"""
-	Clears all nodes and edges from the graph.
-	:param db: Database session
-	:return: None
+	Delete all nodes and edges from the graph.
 	"""
 
 	node_repo.delete_all_nodes(db)
