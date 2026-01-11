@@ -129,7 +129,8 @@ An interactive frontend environment is available at:
 
 Features:
 - **Add nodes:** Double-click anywhere on the canvas to insert a new node into the graph.
-- **Explore reachability:** Click on a node to highlight all nodes reachable from it.
+- **Explore reachability:** Click on a node to highlight all nodes reachable from it. Reachable
+nodes are highlighted as orange.
 - **Create edges:** After selecting a node, click on another node to create a directed connection between them.
 - **Remove elements:** Right-click on a node or an edge to remove it.
 - **Reverse edges:** Click on an edge to swap its direction.
