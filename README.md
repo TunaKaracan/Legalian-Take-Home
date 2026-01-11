@@ -101,8 +101,8 @@ The application can be configured using the following environment variables:
 
 Once running, you can access the interactive API documentation at:
 
-- http://localhost:8000/docs
-- http://localhost:8000/redoc
+- `http://localhost:<PORT>/docs`
+- `http://localhost:<PORT>/redoc`
 
 ## API Endpoint
 
@@ -118,8 +118,23 @@ Returns all nodes reachable from the given node, including the node itself.
 **Example:**
 
 ```http
-GET http://localhost:8000/nodes/1/connected
+GET http://localhost:<PORT>/nodes/1/connected
 ```
+
+## GraphAPI - Interactive Graph in Frontend
+
+An interactive frontend environment is available at:
+- `http://localhost:<PORT>`
+
+Features:
+- **Add nodes:** Double-click anywhere on the canvas to insert a new node into the graph.
+- **Explore reachability:** Click on a node to highlight all nodes reachable from it.
+- **Create edges:** After selecting a node, click on another node to create a directed connection between them.
+- **Remove elements:** Right-click on a node or an edge to remove it.
+- **Reverse edges:** Click on an edge to swap its direction.
+- **Clear graph:** Use the Clear Graph button to remove all nodes and edges.
+- **Seed graph:** Use the Seed Graph button to initialize the graph with a predefined state.
+- **Generate random graph:** Use the Seed Random Graph button to create a graph with a randomly generated state.
 
 ## Graph API – Verifying The Connectivity
 
@@ -127,7 +142,7 @@ GET http://localhost:8000/nodes/1/connected
 
 To confirm that the MySQL database and the API are up and running, execute the following `cURL` command:
 ```shell
-curl -X 'GET' 'http://127.0.0.1:8000/graph' -H 'accept: application/json'
+curl -X 'GET' 'http://127.0.0.1:<PORT>/graph' -H 'accept: application/json'
 ```
 
 #### Expected Response
@@ -146,7 +161,7 @@ Since the graph has just been created and contains no data yet, you should recei
 Next, initialize the graph with a predefined state by running the following command:
 
 ```shell
-curl -X 'POST' 'http://127.0.0.1:8000/graph/seed' -H 'accept: application/json'
+curl -X 'POST' 'http://127.0.0.1:<PORT>/graph/seed' -H 'accept: application/json'
 ```
 This will populate the graph with a known set of nodes and edges for testing and development.
 
@@ -157,7 +172,7 @@ This will populate the graph with a known set of nodes and edges for testing and
 To retrieve all nodes reachable from the node with `id = 1`, execute:
 
 ```shell
-curl -X 'GET' 'http://127.0.0.1:8000/nodes/1/connected' -H 'accept: application/json'
+curl -X 'GET' 'http://127.0.0.1:<PORT>/nodes/1/connected' -H 'accept: application/json'
 ```
 
 #### Expected Response

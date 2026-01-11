@@ -8,7 +8,7 @@ from app.schemas.graph import NodeResponse, EdgeResponse, GraphResponse
 
 def seed_graph(db: Session) -> GraphResponse:
 	"""
-	Create a new graph with a predefined deterministic graph and return it.
+	Create a new graph with a predefined graph state and return it.
 	"""
 	node_repo.delete_all_nodes(db)
 
@@ -49,7 +49,7 @@ def seed_graph(db: Session) -> GraphResponse:
 
 def seed_graph_random(db: Session) -> GraphResponse:
 	"""
-	Create a new graph with a random graph and return it.
+	Create a new graph with a random graph state and return it.
 	"""
 	node_repo.delete_all_nodes(db)
 
