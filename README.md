@@ -29,7 +29,7 @@ service layer and translated into appropriate HTTP responses using FastAPI excep
 
 ---
 
-### Design Trade-offs
+## Design Trade-offs
 #### Clear Layered Architecture
 A clear API–service–repository separation was preferred since it improves testability, readability,
 and scalability for larger codebases, even though it introduces additional boilerplate.
