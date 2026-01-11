@@ -27,9 +27,8 @@ enabling deep connectivity queries to be executed in a single database query.
 Validation errors are handled through Pydantic schemas, domain-specific exceptions are raised in the
 service layer and translated into appropriate HTTP responses using FastAPI exception handlers.
 
----
-
 ## Design Trade-offs
+
 #### Clear Layered Architecture
 A clear API–service–repository separation was preferred since it improves testability, readability,
 and scalability for larger codebases, even though it introduces additional boilerplate.
