@@ -125,6 +125,8 @@ GET http://localhost:<PORT>/nodes/1/connected
 An interactive frontend environment is available at:
 - `http://localhost:<PORT>`
 
+![frontend](https://chibi.kutuptilkisi.dev/su3IoJqUKO7B.png)
+
 Features:
 - **Add nodes:** Double-click anywhere on the canvas to insert a new node into the graph.
 - **Explore reachability:** Click on a node to highlight all nodes reachable from it.
