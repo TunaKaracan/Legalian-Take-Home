@@ -24,10 +24,7 @@ class Settings(BaseSettings):
 			f'{self.db_name}'
 		)
 
-	model_config = SettingsConfigDict(
-		env_prefix='APP_',
-		case_sensitive=False
-	)
+	model_config = SettingsConfigDict(env_prefix='APP_', case_sensitive=False)
 
 
 settings = Settings()
