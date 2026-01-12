@@ -8,6 +8,14 @@ from app.schemas.edge import EdgeResponse, EdgeCreate, EdgeDeleteRequest, EdgeSw
 router = APIRouter()
 
 
+@router.get('/{edge_id}',
+			response_model=list[EdgeResponse],
+			responses={status.HTTP_404_NOT_FOUND: {'description': 'Edge Not Found Error'}},
+			summary='Get edge using its ID')
+def get_edges(edge_id: int, db: Session = Depends(get_db)):
+	return edge_service.get_edges(db, [edge_id])
+
+
 @router.post('',
 			 response_model=list[EdgeResponse],
 			 status_code=status.HTTP_201_CREATED,

@@ -6,6 +6,20 @@ from app.core.exceptions import NodeNotFoundError
 from app.services.assertions import assert_nodes
 
 
+def get_nodes(db: Session, node_ids: list[int]) -> list[NodeResponse]:
+	"""
+	Retrieve the specified nodes from the graph using their IDs.
+
+	:raises NodeNotFoundError: If any requested node does not exist.
+	"""
+
+	assert_nodes(db, node_ids, get_id_from_node=lambda node: node)
+
+	got_nodes = node_repo.get_nodes(db=db, node_ids=node_ids)
+
+	return [NodeResponse(id=node.id) for node in got_nodes]
+
+
 def get_reachable_nodes(db: Session, node_id: int) -> list[NodeResponse]:
 	"""
 	Return all nodes reachable from the given node via directed edges.
