@@ -22,6 +22,7 @@ def get_reachable_nodes(db: Session, node_id: int) -> list[NodeResponse]:
 
 	return [NodeResponse(id=node.id) for node in reachable_nodes]
 
+
 def create_nodes(db: Session, nodes: list[NodeCreate]) -> list[NodeResponse]:
 	"""
 	Create one or more new nodes and return their assigned IDs.
@@ -30,6 +31,7 @@ def create_nodes(db: Session, nodes: list[NodeCreate]) -> list[NodeResponse]:
 	created_nodes = node_repo.create_nodes(db, count=len(nodes))
 
 	return [NodeResponse(id=node.id) for node in created_nodes]
+
 
 def delete_nodes(db, nodes: list[NodeDeleteRequest]) -> None:
 	"""

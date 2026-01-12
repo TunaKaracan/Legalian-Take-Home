@@ -7,6 +7,7 @@ from app.schemas.graph import GraphResponse
 
 router = APIRouter()
 
+
 @router.get('',
 			response_model=GraphResponse,
 			summary='Get the current graph')
@@ -28,6 +29,7 @@ def seed_graph(db: Session = Depends(get_db)):
 			 summary='Randomly seed the graph')
 def seed_graph(db: Session = Depends(get_db)):
 	return graph_service.seed_graph_random(db)
+
 
 @router.delete('/clear',
 			   status_code=status.HTTP_204_NO_CONTENT,

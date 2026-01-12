@@ -9,11 +9,14 @@ from app.models.edge import Edge
 def get_edge(db: Session, edge_id: int) -> Edge | None:
 	return db.scalars(select(Edge).where(Edge.id == edge_id)).first()
 
+
 def get_edges(db: Session, edge_ids: list[int]) -> Sequence[Edge]:
 	return db.scalars(select(Edge).where(Edge.id.in_(edge_ids))).all()
 
+
 def get_all_edges(db: Session) -> Sequence[Edge]:
 	return db.scalars(select(Edge)).all()
+
 
 def create_edges(db: Session, edges: list[tuple[int, int]]) -> Sequence[Edge]:
 	db_edges = [Edge(from_node_id=from_id, to_node_id=to_id) for from_id, to_id in edges]
@@ -25,6 +28,7 @@ def create_edges(db: Session, edges: list[tuple[int, int]]) -> Sequence[Edge]:
 		db.refresh(edge)
 
 	return db_edges
+
 
 def swap_edge_directions(db: Session, edges: list[int]) -> Sequence[Edge]:
 	edges = get_edges(db, edges)
@@ -41,6 +45,7 @@ def swap_edge_directions(db: Session, edges: list[int]) -> Sequence[Edge]:
 		db.refresh(edge)
 
 	return edges
+
 
 def delete_edges(db: Session, edge_ids: list[int]) -> None:
 	db.execute(delete(Edge).where(Edge.id.in_(edge_ids)))

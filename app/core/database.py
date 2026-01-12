@@ -14,6 +14,7 @@ def create_tables():
 
 	db.close()
 
+
 def get_db() -> Session:
 	db = SessionLocal()
 	try:

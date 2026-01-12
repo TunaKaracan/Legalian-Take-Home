@@ -23,6 +23,7 @@ def create_edges(db: Session, edges: list[EdgeCreate]) -> list[EdgeResponse]:
 						 from_node_id=edge.from_node_id,
 						 to_node_id=edge.to_node_id) for edge in created_edges]
 
+
 def swap_edge_directions(db: Session, edges: list[EdgeSwapDirectionRequest]) -> list[EdgeResponse]:
 	"""
     Reverse the direction of the specified edges (X -> Y becomes Y -> X).
@@ -37,6 +38,7 @@ def swap_edge_directions(db: Session, edges: list[EdgeSwapDirectionRequest]) -> 
 	return [EdgeResponse(id=swapped_edge.id,
 						 from_node_id=swapped_edge.from_node_id,
 						 to_node_id=swapped_edge.to_node_id) for swapped_edge in swapped_edges]
+
 
 def delete_edges(db: Session, edges: list[EdgeDeleteRequest]) -> None:
 	"""

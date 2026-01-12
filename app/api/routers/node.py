@@ -7,6 +7,7 @@ from app.schemas.node import NodeResponse, NodeCreate, NodeDeleteRequest
 
 router = APIRouter()
 
+
 @router.get('/{node_id}/connected',
 			response_model=list[NodeResponse],
 			responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},

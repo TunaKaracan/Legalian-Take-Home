@@ -7,6 +7,7 @@ from app.schemas.edge import EdgeResponse, EdgeCreate, EdgeDeleteRequest, EdgeSw
 
 router = APIRouter()
 
+
 @router.post('',
 			 response_model=list[EdgeResponse],
 			 status_code=status.HTTP_201_CREATED,

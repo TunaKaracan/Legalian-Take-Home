@@ -11,6 +11,7 @@ TRes = TypeVar('TRes', bound=object)
 TId = TypeVar('TId', bound=int)
 TExc = TypeVar('TExc', bound=Exception)
 
+
 def assert_nodes(db: Session,
 				 nodes: Sequence[TReq],
 				 get_id_from_node: Callable[[TReq], TId] = lambda n: n.node_id,
@@ -35,6 +36,7 @@ def assert_nodes(db: Session,
 							get_id_from_existing=get_id_from_existing,
 							exception_factory=node_exception)
 
+
 def assert_edges(db: Session,
 				 edges: Sequence[TReq],
 				 get_id_from_edge: Callable[[TReq], TId] = lambda e: e.edge_id,
@@ -58,6 +60,7 @@ def assert_edges(db: Session,
 							fetch_existing=fetch_existing,
 							get_id_from_existing=get_id_from_existing,
 							exception_factory=edge_exception)
+
 
 def assert_resources(db: Session,
 					 resources: Sequence[TReq],
