@@ -20,6 +20,7 @@ def get_graph(db: Session) -> GraphResponse:
 											 from_node_id=edge.from_node_id,
 											 to_node_id=edge.to_node_id) for edge in edges])
 
+
 def seed_graph(db: Session) -> GraphResponse:
 	"""
 	Replace the current graph with a predefined deterministic graph and return it.
@@ -27,12 +28,14 @@ def seed_graph(db: Session) -> GraphResponse:
 
 	return seed_db.seed_graph(db)
 
+
 def seed_graph_random(db: Session) -> GraphResponse:
 	"""
 	Replace the current graph with a randomly generated graph and return it.
 	"""
 
 	return seed_db.seed_graph_random(db)
+
 
 def clear_graph(db: Session) -> None:
 	"""

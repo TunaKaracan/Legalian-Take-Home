@@ -7,6 +7,15 @@ from app.schemas.node import NodeResponse, NodeCreate, NodeDeleteRequest
 
 router = APIRouter()
 
+
+@router.get('/{node_id}',
+			response_model=list[NodeResponse],
+			responses={status.HTTP_404_NOT_FOUND: {'description': 'Node not found Error'}},
+			summary='Get node using its ID')
+def get_nodes(node_id: int, db: Session = Depends(get_db)):
+	return node_service.get_nodes(db, [node_id])
+
+
 @router.get('/{node_id}/connected',
 			response_model=list[NodeResponse],
 			responses={status.HTTP_404_NOT_FOUND: {'description': 'Node Not Found Error'}},

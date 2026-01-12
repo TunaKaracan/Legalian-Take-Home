@@ -29,6 +29,7 @@ def seed_graph(db: Session = Depends(get_db)):
 def seed_graph(db: Session = Depends(get_db)):
 	return graph_service.seed_graph_random(db)
 
+
 @router.delete('/clear',
 			   status_code=status.HTTP_204_NO_CONTENT,
 			   summary='Clear the nodes and edges')

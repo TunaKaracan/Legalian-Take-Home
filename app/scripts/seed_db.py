@@ -5,20 +5,8 @@ from sqlalchemy.orm import Session
 from app.repositories import node_repo, edge_repo
 from app.schemas.graph import NodeResponse, EdgeResponse, GraphResponse
 
-
-def seed_graph(db: Session) -> GraphResponse:
-	"""
-	Create a new graph with a predefined graph state and return it.
-	"""
-	node_repo.delete_all_nodes(db)
-
-	total_nodes = 25
-	created_nodes = node_repo.create_nodes(db, total_nodes)
-
-	node_ids = [node.id for node in created_nodes]
-	min_id = min(node_ids)
-
-	edges_to_create = [(0, 1), (0, 2), (0, 4), (0, 5),
+NODES_TO_CREATE = 25
+EDGES_TO_CREATE = [(0, 1), (0, 2), (0, 4), (0, 5),
 						(1, 3), (1, 6), (1, 7),
 						(2, 4), (2, 8),
 						(3, 10),
@@ -38,7 +26,21 @@ def seed_graph(db: Session) -> GraphResponse:
 						(20, 19), (20, 23), (20, 24),
 						(21, 19),
 						(22, 21)]
-	edges_to_create = [(f + min_id, t + min_id) for (f, t) in edges_to_create]
+
+
+def seed_graph(db: Session) -> GraphResponse:
+	"""
+	Create a new graph with a predefined graph state and return it.
+	"""
+
+	node_repo.delete_all_nodes(db)
+
+	created_nodes = node_repo.create_nodes(db, NODES_TO_CREATE)
+
+	node_ids = [node.id for node in created_nodes]
+	min_id = min(node_ids)
+
+	edges_to_create = [(f + min_id, t + min_id) for (f, t) in EDGES_TO_CREATE]
 	created_edges = edge_repo.create_edges(db, edges_to_create)
 
 	return GraphResponse(
@@ -52,6 +54,7 @@ def seed_graph_random(db: Session) -> GraphResponse:
 	"""
 	Create a new graph with a random graph state and return it.
 	"""
+
 	node_repo.delete_all_nodes(db)
 
 	total_nodes = randint(10, 20)
