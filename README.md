@@ -4,6 +4,8 @@ A simple Graph API built with **FastAPI** that allows you to create nodes and ed
 relationships between nodes in a graph. The service runs via **Docker Compose** and uses
 **MySQL** for persistence.
 
+---
+
 ### Table of Contents
 1. [Overview](#overview)
 2. [Architecture](#architecture)
@@ -40,6 +42,8 @@ The codebase is organized into the following layers:
 Graph traversal is implemented using a recursive Common Table Expression (CTE) in MySQL,
 enabling deep connectivity queries to be executed in a single database query.
 
+---
+
 #### Error Handling
 Validation errors are handled through Pydantic schemas, domain-specific exceptions are raised in the
 service layer and translated into appropriate HTTP responses using FastAPI exception handlers.
@@ -47,7 +51,7 @@ service layer and translated into appropriate HTTP responses using FastAPI excep
 ## Design Decisions & Trade-offs
 
 #### Clear Layered Architecture
-A clear API–service–repository separation was preferred since it improves testability, readability,
+A clear API-service-repository separation was preferred since it improves testability, readability,
 and scalability for larger codebases, even though it introduces additional boilerplate.
 
 ---
