@@ -3,14 +3,14 @@ services:
     image: "mysql:8"
     restart: "always"
     environment:
-      MYSQL_ROOT_PASSWORD: "1234"
-      MYSQL_DATABASE: "graph_db"
+      MYSQL_ROOT_PASSWORD: ${APP_DB_PASSWORD}
+      MYSQL_DATABASE: ${APP_DB_NAME}
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
       - internal
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p1234" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u${APP_DB_USER}", "-p${APP_DB_PASSWORD}" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -19,16 +19,16 @@ services:
   legalian-take-home:
     build: .
     ports:
-      - "8000:8000"
+      - "8000:${PORT}"
     restart: "unless-stopped"
     environment:
-      PORT: "8000"
-      APP_DEBUG_MODE: true
-      APP_DB_HOST: "mysql"
-      APP_DB_PORT: 3306
-      APP_DB_USER: "root"
-      APP_DB_PASSWORD: "1234"
-      APP_DB_NAME: "graph_db"
+      PORT: ${PORT}
+      APP_DEBUG_MODE: ${APP_DEBUG_MODE}
+      APP_DB_HOST: ${APP_DB_HOST}
+      APP_DB_PORT: ${APP_DB_PORT}
+      APP_DB_USER: ${APP_DB_USER}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+      APP_DB_NAME: ${APP_DB_NAME}
     networks:
       - internal
     depends_on:
