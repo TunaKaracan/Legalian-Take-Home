@@ -29,12 +29,7 @@ def assert_nodes(db: Session,
 	:return: List of node IDs
 	"""
 
-	return assert_resources(db,
-							nodes,
-							get_id_from_node,
-							fetch_existing,
-							get_id_from_existing,
-							node_exception)
+	return assert_resources(db, nodes, get_id_from_node, fetch_existing, get_id_from_existing, node_exception)
 
 
 def assert_edges(db: Session,
@@ -54,12 +49,7 @@ def assert_edges(db: Session,
 	:return: List of edge IDs
 	"""
 
-	return assert_resources(db,
-							edges,
-							get_id_from_edge,
-							fetch_existing,
-							get_id_from_existing,
-							edge_exception)
+	return assert_resources(db, edges, get_id_from_edge, fetch_existing, get_id_from_existing, edge_exception)
 
 
 def assert_resources(db: Session,

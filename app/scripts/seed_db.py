@@ -73,4 +73,3 @@ def seed_graph_random(db: Session) -> GraphResponse:
 		edges=[EdgeResponse(id=edge.id,
 							from_node_id=edge.from_node_id,
 							to_node_id=edge.to_node_id) for edge in created_edges])
-
